@@ -80,4 +80,34 @@ public class Money {
         String[] monmon = money.split(":");
         return new Money(Integer.parseInt(monmon[0]), Integer.parseInt(monmon[1]));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.leva;
+        hash = 97 * hash + this.stotinki;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Money other = (Money) obj;
+        if (this.leva != other.leva) {
+            return false;
+        }
+        if (this.stotinki != other.stotinki) {
+            return false;
+        }
+        return true;
+    }
+    
 }

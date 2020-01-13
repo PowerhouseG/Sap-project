@@ -5,98 +5,151 @@
  */
 package storeLogic;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  *
  * @author x
  */
 public class Store {
 
-    Map<Integer, Product> findByNumber;
-    Map<String, Product> findByName;
+    private double money;
+    private Storage storage;
+    private Map<Double, Date> account;
 
     public Store() {
-        findByName = new HashMap<>();
-        findByNumber = new HashMap<>();
+        this(0.0, new Storage());
     }
 
-    public void addProduct(Product product) {
-        if (!findByName.containsValue(product)) {
-            if (!findByNumber.containsValue(product)) {
-                findByName.put(product.getName(), product);
-                findByNumber.put(product.getId(), product);
+    public Store(Storage storage) {
+        this(0.0, storage);
+    }
+
+    public Store(double money) {
+        this(money, new Storage());
+    }
+
+    public Store(double money, Storage storage) {
+        this.money = money;
+        this.storage = storage;
+        account = new HashMap<>();
+    }
+
+    public void saveAccount(Date date, double money) {
+        account.put(money, date);
+    }
+
+    public boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
+        return testDate.after(startDate) && testDate.before(endDate);
+    }
+
+    public boolean isAfter(Date testDate, Date startDate) {
+        return testDate.after(startDate);
+    }
+
+    public boolean isBefore(Date testDate, Date endDate) {
+        return testDate.before(endDate);
+    }
+
+    public Date createDate(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month - 1, day);
+        return cal.getTime();
+    }
+
+    public Date createTime(int hour, int minutes) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minutes);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
+    public Date createDateAndTime(int year, int month, int day, int hour, int minutes) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month - 1, day, hour, minutes, 0);
+        return cal.getTime();
+    }
+
+    public Map<Double, Date> getAccountsWithinRange(Date startDate, Date endDate) {
+        Map<Double, Date> ac = new HashMap<>();
+        for (Double m : account.keySet()) {
+            if (isWithinRange(account.get(m), startDate, endDate)) {
+                ac.put(m, account.get(m));
             }
         }
-
+        return ac;
     }
 
-    public Product getProduct(String name) {
-        for (String p : findByName.keySet()) {
-            if (p.equals(name)) {
-                return findByName.get(p);
+    public Map<Double, Date> getAccountsAfter(Date startDate) {
+        Map<Double, Date> ac = new HashMap<>();
+        for (Double m : account.keySet()) {
+            if (isAfter(account.get(m), startDate)) {
+                ac.put(m, account.get(m));
             }
         }
-        return null;
+        return ac;
     }
 
-    public Product getProduct(int id) {
-        for (int i : findByNumber.keySet()) {
-            if (i == id) {
-                return findByNumber.get(i);
+    public Map<Double, Date> getAccountsBefore(Date endDate) {
+        Map<Double, Date> ac = new HashMap<>();
+        for (Double m : account.keySet()) {
+            if (isBefore(account.get(m), endDate)) {
+                ac.put(m, account.get(m));
             }
         }
-        return null;
+        return ac;
     }
 
-    public void remove(String name) {
-        if (findByName.containsKey(name)) {
-            Product temp = findByName.get(name);
-            findByName.remove(name);
-            if (findByNumber.containsValue(temp)) {
-                remove(temp.getId());
-            }
+    public Map<Double, Date> getAccount() {
+        return account;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public Double buySingle(String name, double money) throws Exception {
+        if (!objectExists(name)) {
+            //throw new CantFindProductException(name);
+            System.out.println("doesn't exist");
+        } else if (!enoughMoney(name, money)) {
+            //throw new NotEnoughMoneyException(storage.getProduct(name).getPrice(),money);
+            System.out.println("doesn't money");
+        } else if (!enoughProducts(1, name)) {
+            //throw new NotEnoughProductsException(name);
+            System.out.println("doesn't products");
+        } else {
+            double toPay = storage.getProduct(name).getPrice();
+            money -= toPay;
+            storage.getProduct(name).buy(1);
+            this.money += toPay;
+            saveAccount(new Date(), this.money);
         }
+        return money;
     }
 
-    public void remove(int id) {
-        if (findByNumber.containsKey(id)) {
-            Product temp = findByNumber.get(id);
-            findByNumber.remove(id);
-            if (findByName.containsValue(temp)) {
-                remove(temp.getName());
-            }
+    public boolean enoughMoney(String name, double money) {
+        if (money < storage.getProduct(name).getPrice()) {
+            return false;
         }
+        return true;
     }
 
-    public Map<Product, Integer> getStock() {
-        Map<Product, Integer> stocks = new HashMap<>();
-        for (Product p : findByName.values()) {
-            stocks.put(p, p.getStock());
+    public boolean enoughProducts(int num, String name) {
+        if (storage.getProduct(name).getStock() < num) {
+            return false;
         }
-        return stocks;
+        return true;
     }
 
-    public int getStock(int id) {
-        return getProduct(id).getStock();
+    public boolean objectExists(String name) {
+        if (storage.getProduct(name) == null) {
+            return false;
+        }
+        return true;
     }
-
-    public int getStock(String name) {
-        return getProduct(name).getStock();
-    }
-    
-    public void setPrice(String name,String price){
-        getProduct(name).setPrice(price);
-    }
-    public void setPrice(int id,String price){
-        getProduct(id).setPrice(price);
-    }
-    public void setMinPrice(int id,String price){
-        getProduct(id).setMinPrice(price);
-    }
-     public void setMinPrice(String name,String price){
-        getProduct(name).setMinPrice(price);
-    }
-
 }

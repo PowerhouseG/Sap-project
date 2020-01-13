@@ -1,0 +1,25 @@
+[ {
+  "stock" : 19,
+  "blackFriday" : true,
+  "name" : "Carrot",
+  "id" : 1,
+  "price" : 9.99,
+  "minPrice" : 9.98,
+  "oldPrice" : 0.0
+}, {
+  "stock" : 1,
+  "blackFriday" : true,
+  "name" : "Stick",
+  "id" : 3,
+  "price" : 25.99,
+  "minPrice" : 1.0,
+  "oldPrice" : 0.0
+}, {
+  "stock" : 0,
+  "blackFriday" : false,
+  "name" : "Diamond",
+  "id" : 2,
+  "price" : 9.99,
+  "minPrice" : 9.98,
+  "oldPrice" : 0.0
+} ]

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/sapprojectlol/SAPProjectLol.java</file>
-            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/storeLogic/Store.java</file>
-            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/moneyLogic/Money.java</file>
-            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/storeLogic/Product.java</file>
+            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/clientPasswords.json</file>
+            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/fileLogic/UserHandler.java</file>
+            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/profileLogic/ProfileManager.java</file>
+            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/profileLogic/User.java</file>
+            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/profileLogic/NonAdministratorUser.java</file>
+            <file>file:/C:/Users/x/Desktop/Learning%20Java(MOOC)/zadachi%20ot%20chasove/SAPProjectLol/src/passwords.json</file>
         </group>
     </open-files>
 </project-private>
